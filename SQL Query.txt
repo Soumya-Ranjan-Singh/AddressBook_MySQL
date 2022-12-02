@@ -195,3 +195,19 @@ mysql> select count(*) from addressbook where City = 'Cuttack';
 1 row in set (0.00 sec)
 
 --------------------------------------------------------------------------------------------------------
+
+
+
+UC 8 - Ability to retrieve entries sorted alphabetically by Person’s name for a given city.
+--------------------------------------------------------------------------------------------------------
+
+mysql> select * from addressbook where City = 'Cuttack' order by FirstName ASC;
++-----------+----------+----------+---------+--------+--------+------------+-------------------+
+| FirstName | LastName | Address  | City    | State  | Zip    | PhoneNo    | Email             |
++-----------+----------+----------+---------+--------+--------+------------+-------------------+
+| Sambit    | Behera   | Chowdwar | Cuttack | Odisha | 754033 | 7008565646 | sbehera@gmail.com |
+| Soumya    | Singh    | Jobra    | Cuttack | Odisha | 753007 | 8249837408 | soumyar@gmail.com |
++-----------+----------+----------+---------+--------+--------+------------+-------------------+
+2 rows in set (0.01 sec)
+
+--------------------------------------------------------------------------------------------------------
