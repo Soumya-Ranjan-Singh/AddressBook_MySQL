@@ -211,3 +211,84 @@ mysql> select * from addressbook where City = 'Cuttack' order by FirstName ASC;
 2 rows in set (0.01 sec)
 
 --------------------------------------------------------------------------------------------------------
+
+
+
+UC 9 - Ability to identify each Address Book with name and type. 
+       - Here the type could Family, Friends, Profession, etc.
+       - Alter Address Book to add name and type.
+--------------------------------------------------------------------------------------------------------
+
+mysql> alter table addressbook add Name Varchar(20) after Email;
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table addressbook add Type Varchar(20) after Name;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from addressbook;
++-----------+----------+------------+-----------+------------+--------+------------+-------------------+------+------+
+| FirstName | LastName | Address    | City      | State      | Zip    | PhoneNo    | Email             | Name | Type |
++-----------+----------+------------+-----------+------------+--------+------------+-------------------+------+------+
+| Soumya    | Singh    | Jobra      | Cuttack   | Odisha     | 753007 | 8249837408 | soumyar@gmail.com | NULL | NULL |
+| Sambit    | Behera   | Chowdwar   | Cuttack   | Odisha     | 754033 | 7008565646 | sbehera@gmail.com | NULL | NULL |
+| Prahallad | Singh    | Thane      | Mumbai    | Maharastra | 440221 | 7008456545 | psingh@gmail.com  | NULL | NULL |
+| Ranjan    | Chintu   | Marathalli | Bengaluru | Karnataka  | 560037 | 7735648479 | rranjan@gmail.com | NULL | NULL |
++-----------+----------+------------+-----------+------------+--------+------------+-------------------+------+------+
+4 rows in set (0.00 sec)
+
+mysql> update addressbook set Name = 'PhoneContact' where FirstName = 'Soumya' or FirstName = 'Sambit' or FirstName = 'Prahallad';
+Query OK, 3 rows affected (0.00 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+mysql> select * from addressbook;
++-----------+----------+------------+-----------+------------+--------+------------+-------------------+--------------+------+
+| FirstName | LastName | Address    | City      | State      | Zip    | PhoneNo    | Email             | Name         | Type |
++-----------+----------+------------+-----------+------------+--------+------------+-------------------+--------------+------+
+| Soumya    | Singh    | Jobra      | Cuttack   | Odisha     | 753007 | 8249837408 | soumyar@gmail.com | PhoneContact | NULL |
+| Sambit    | Behera   | Chowdwar   | Cuttack   | Odisha     | 754033 | 7008565646 | sbehera@gmail.com | PhoneContact | NULL |
+| Prahallad | Singh    | Thane      | Mumbai    | Maharastra | 440221 | 7008456545 | psingh@gmail.com  | PhoneContact | NULL |
+| Ranjan    | Chintu   | Marathalli | Bengaluru | Karnataka  | 560037 | 7735648479 | rranjan@gmail.com | NULL         | NULL |
++-----------+----------+------------+-----------+------------+--------+------------+-------------------+--------------+------+
+4 rows in set (0.00 sec)
+
+mysql> update addressbook set Name = 'SimContact' where FirstName = 'Ranjan';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from addressbook;
++-----------+----------+------------+-----------+------------+--------+------------+-------------------+--------------+------+
+| FirstName | LastName | Address    | City      | State      | Zip    | PhoneNo    | Email             | Name         | Type |
++-----------+----------+------------+-----------+------------+--------+------------+-------------------+--------------+------+
+| Soumya    | Singh    | Jobra      | Cuttack   | Odisha     | 753007 | 8249837408 | soumyar@gmail.com | PhoneContact | NULL |
+| Sambit    | Behera   | Chowdwar   | Cuttack   | Odisha     | 754033 | 7008565646 | sbehera@gmail.com | PhoneContact | NULL |
+| Prahallad | Singh    | Thane      | Mumbai    | Maharastra | 440221 | 7008456545 | psingh@gmail.com  | PhoneContact | NULL |
+| Ranjan    | Chintu   | Marathalli | Bengaluru | Karnataka  | 560037 | 7735648479 | rranjan@gmail.com | SimContact   | NULL |
++-----------+----------+------------+-----------+------------+--------+------------+-------------------+--------------+------+
+4 rows in set (0.00 sec)
+
+mysql> update addressbook set Type = 'Friends' where FirstName = 'Soumya' or FirstName = 'Sambit';
+Query OK, 2 rows affected (0.00 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> update addressbook set Type = 'Family' where FirstName = 'Prahallad';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update addressbook set Type = 'Profession' where FirstName = 'Ranjan';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from addressbook;
++-----------+----------+------------+-----------+------------+--------+------------+-------------------+--------------+------------+
+| FirstName | LastName | Address    | City      | State      | Zip    | PhoneNo    | Email             | Name         | Type       |
++-----------+----------+------------+-----------+------------+--------+------------+-------------------+--------------+------------+
+| Soumya    | Singh    | Jobra      | Cuttack   | Odisha     | 753007 | 8249837408 | soumyar@gmail.com | PhoneContact | Friends    |
+| Sambit    | Behera   | Chowdwar   | Cuttack   | Odisha     | 754033 | 7008565646 | sbehera@gmail.com | PhoneContact | Friends    |
+| Prahallad | Singh    | Thane      | Mumbai    | Maharastra | 440221 | 7008456545 | psingh@gmail.com  | PhoneContact | Family     |
+| Ranjan    | Chintu   | Marathalli | Bengaluru | Karnataka  | 560037 | 7735648479 | rranjan@gmail.com | SimContact   | Profession |
++-----------+----------+------------+-----------+------------+--------+------------+-------------------+--------------+------------+
+4 rows in set (0.00 sec)
+
+--------------------------------------------------------------------------------------------------------
