@@ -331,3 +331,33 @@ mysql> select count(Type) from addressbook;
 1 row in set (0.00 sec)
 
 --------------------------------------------------------------------------------------------------------
+
+
+
+UC 11 - Ability to add person to both Friend and Family.
+--------------------------------------------------------------------------------------------------------
+
+mysql> insert into addressbook(
+    -> FirstName,LastName,Address,City,State,Zip,PhoneNo,Email) values
+    -> ('Rakesh','Kumar','Bokaro','SteelCity','Jharkhand','654784','9124758282','rkumar@gmail.com','SimContact','Friends,Profession');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into addressbook(
+    -> FirstName,LastName,Address,City,State,Zip,PhoneNo,Email,Name,Type) values
+    -> ('Rakesh','Kumar','Bokaro','SteelCity','Jharkhand','654784','9124758282','rkumar@gmail.com','SimContact','Friends,Profession');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from addressbook
+    -> ;
++-----------+----------+------------+-----------+------------+--------+------------+-------------------+--------------+--------------------+
+| FirstName | LastName | Address    | City      | State      | Zip    | PhoneNo    | Email             | Name         | Type               |
++-----------+----------+------------+-----------+------------+--------+------------+-------------------+--------------+--------------------+
+| Soumya    | Singh    | Jobra      | Cuttack   | Odisha     | 753007 | 8249837408 | soumyar@gmail.com | PhoneContact | Friends            |
+| Sambit    | Behera   | Chowdwar   | Cuttack   | Odisha     | 754033 | 7008565646 | sbehera@gmail.com | PhoneContact | Friends            |
+| Prahallad | Singh    | Thane      | Mumbai    | Maharastra | 440221 | 7008456545 | psingh@gmail.com  | PhoneContact | Family             |
+| Ranjan    | Chintu   | Marathalli | Bengaluru | Karnataka  | 560037 | 7735648479 | rranjan@gmail.com | SimContact   | Profession         |
+| Rakesh    | Kumar    | Bokaro     | SteelCity | Jharkhand  | 654784 | 9124758282 | rkumar@gmail.com  | SimContact   | Friends,Profession |
++-----------+----------+------------+-----------+------------+--------+------------+-------------------+--------------+--------------------+
+5 rows in set (0.00 sec)
+
+--------------------------------------------------------------------------------------------------------
+
